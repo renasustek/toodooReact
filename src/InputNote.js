@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Note from './Note';
 
 function InputNote() {
   const [title, setTitle] = useState("");
@@ -6,7 +7,8 @@ function InputNote() {
 
   const submitButton = (e) => {
     e.preventDefault();
-    console.log("TILTE: " + title + " CONTENT: " + content);
+    const note = new Note(title, content);
+    note.createNote();
   }
   return (
     <form>
