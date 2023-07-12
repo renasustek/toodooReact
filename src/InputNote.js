@@ -1,30 +1,49 @@
 import React, { useState } from 'react';
 import Note from './Note';
+import axios from "axios";
 
-function InputNote() {
+export default function InputNote() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const submitButton = (e) => {
+  const submitButton = async (e) => {
     e.preventDefault();
-    const note = new Note(title, content);
-    note.createNote();
+    var postNote = {
+      "title": title,
+      "content": content
+    };
+
+    const post = await axios.post('http://localhost:7070/postNotes', postNote, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    
+    setTitle("");
+    setContent("");
   }
   return (
-    <form>
+    <div>
+      <form>
+        <div>
+          <label htmlFor="title">Title</label>
+          <input type="text" id="title" value={title} onChange={e => setTitle(e.target.value)} />
+        </div>
+        <div>
+          <label htmlFor="content">Content</label>
+          <input type="text" id="content" value={content} onChange={e => setContent(e.target.value)} />
+        </div>
+        <button onClick={submitButton} type="submit">
+          Submit
+        </button>
+      </form>
       <div>
-        <label htmlFor="title">Title</label>
-        <input type="text" id="title" value={title} onChange={e => setTitle(e.target.value)} />
+        {/* {notes.map((note, index) => (
+        <Note key={index} title={note.title} content={note.content} />
+      ))} */}
       </div>
-      <div >
-        <label htmlFor="content">Content</label>
-        <input type="text" id="content" value={content} onChange={e => setContent(e.target.value)} />
-      </div>
-      <button onClick={submitButton} type="submit">
-        Submit
-      </button>
-    </form>
+    </div>
   );
 }
 
-export default InputNote;

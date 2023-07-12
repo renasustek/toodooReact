@@ -1,23 +1,23 @@
 import React from 'react';
+import GetNotes from './GetNotes';
 
-class Note extends React.Component {
-    constructor(title, content) {
-        super();
-        this.state = {
-            title: title,
-            content: content
-          };
+function Note() {
+    const notes = GetNotes();
+  
+    if (!notes || notes.length === 0) {
+      return <p>Loading...</p>;
     }
-
-    createNote() {
-        return (
-            <div>
-                <div>{this.state.title}</div>
-                <div>{this.state.content}</div>
-            </div>
-        );
-    }
-
-}
+  
+    return (
+      <div>
+        {notes.map((note) => (
+          <div key={note.id}>
+            <div>{note.title}</div>
+            <div>{note.content}</div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
 export default Note;
