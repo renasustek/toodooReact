@@ -19,21 +19,7 @@ const API_URI = 'http://localhost:7070/getNotes';
    }, []);
 
    return notes; 
-   if (!notes) {
-    return <p>Loading...</p>;
-  }
-
-
-   return (
-    <div>
-      {notes.map((note) => (
-        <div key={note.id}>
-          <div>{note.title}</div>
-          <div>{note.content}</div>
-        </div>
-      ))}
-    </div>
-  );
+  
 }
 
 export default GetNotes;

@@ -18,7 +18,6 @@ export default function InputNote() {
         'Content-Type': 'application/json'
       }
     });
-
     
     setTitle("");
     setContent("");
